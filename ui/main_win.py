@@ -104,19 +104,49 @@ class Ui_MainWindow(object):
         dark_palette.setColor(QtGui.QPalette.Text, QtGui.QColor(255, 255, 255))
         dark_palette.setColor(QtGui.QPalette.Button, QtGui.QColor(53, 53, 53))
         dark_palette.setColor(QtGui.QPalette.ButtonText, QtGui.QColor(255, 255, 255))
-        dark_palette.setColor(QtGui.QPalette.BrightText, QtGui.QColor(255, 0, 0))
         dark_palette.setColor(QtGui.QPalette.Highlight, QtGui.QColor(142, 45, 197).lighter())
         dark_palette.setColor(QtGui.QPalette.HighlightedText, QtGui.QColor(0, 0, 0))
 
         QtWidgets.QApplication.setPalette(dark_palette)
 
-        # Apply custom styles
+        # Apply explicit styles for QMenuBar
         self.apply_styles(
-            "QMenuBar { background-color: #353535; color: white; }"
-            "QMenu { background-color: #353535; color: white; }"
-            "QGraphicsView { background-color: #2B2B2B; }"
-            "QListWidget { background-color: #2B2B2B; color: white; }"
+            """
+            QMenuBar {
+                background-color: #353535;
+                color: black;  /* Ensure black text */
+            }
+            QMenuBar::item {
+                background: transparent;
+                color: black;  /* Explicitly set individual menu items to black */
+            }
+            QMenuBar::item:selected {
+                background: #505050;
+                color: black;
+            }
+            QMenu {
+                background-color: #353535;
+                color: white;  /* Menu dropdown items stay white */
+            }
+            QMenu::item:selected {
+                background-color: #505050;
+                color: white;
+            }
+            QGraphicsView {
+                background-color: #2B2B2B;
+            }
+            QListWidget {
+                background-color: #2B2B2B;
+                color: white;
+            }
+            """
         )
+
+        # Set QMenuBar text color programmatically as a fallback
+        self.menubar.setStyleSheet("color: white; background-color: #353535;")
+
+        for menu in [self.menufile, self.menuedit, self.menuwindows]:
+            menu.setStyleSheet("color: white; background-color: #353535;")
 
     def set_light_theme(self):
         """Set light theme."""
@@ -143,6 +173,12 @@ class Ui_MainWindow(object):
             "QGraphicsView { background-color: #F0F0F0; }"
             "QListWidget { background-color: #FFFFFF; color: black; }"
         )
+
+                # Set QMenuBar text color programmatically as a fallback
+        self.menubar.setStyleSheet("color: black; background-color: #FFFFFF;")
+
+        for menu in [self.menufile, self.menuedit, self.menuwindows]:
+            menu.setStyleSheet("color: black; background-color: #FFFFFF;")
 
     def apply_styles(self, style_sheet):
         """Apply a stylesheet to the main window."""
