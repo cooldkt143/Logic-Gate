@@ -117,8 +117,9 @@
    </widget>
    <widget class="QMenu" name="menuwindows">
     <property name="title">
-     <string>windows</string>
+     <string>window </string>
     </property>
+    <addaction name="actiontheme"/>
    </widget>
    <addaction name="menufile"/>
    <addaction name="menuedit"/>
@@ -207,6 +208,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Del</string>
+   </property>
+  </action>
+  <action name="actiontheme">
+   <property name="text">
+    <string>theme </string>
    </property>
   </action>
  </widget>

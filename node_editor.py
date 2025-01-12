@@ -10,6 +10,31 @@ class NodeEditor:
         self.clipboard = []  # Clipboard to store cut/copied nodes
         self.undo_stack = []
         self.redo_stack = []
+        self.current_theme = 'light' 
+
+    def change_theme(self):
+        """Change theme based on the current one."""
+        if self.current_theme == 'light':
+            self.set_dark_theme()
+        else:
+            self.set_light_theme()
+
+    def set_dark_theme(self):
+        """Set dark theme for nodes."""
+        self.current_theme = 'dark'
+        for node in self.nodes:
+            node.set_dark_theme()
+
+    def set_light_theme(self):
+        """Set light theme for nodes."""
+        self.current_theme = 'light'
+        for node in self.nodes:
+            node.set_light_theme()
+
+     # Add method for connecting nodes
+    def connect_nodes(self, output_node, input_node):
+        output_node.outputs.append(input_node)
+        input_node.inputs.append(output_node)
 
     def add_node(self, node_type):
         """Adds a graphical representation of a node to the scene."""
@@ -174,3 +199,4 @@ class NodeGraphicsItem(QGraphicsItem):
         painter.setBrush(QBrush(Qt.lightGray))
         painter.drawRect(self.boundingRect())
         painter.drawText(self.boundingRect(), Qt.AlignCenter, self.node_type)
+

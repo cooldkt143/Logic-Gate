@@ -20,6 +20,13 @@ class InputNode(Node):
         """Returns the value of the input."""
         return self.value
 
+    def set_value(self, value):
+        self.value = value
+        self.update_connections()
+
+    def update_connections(self):
+        for output_node in self.outputs:
+            output_node.evaluate()
 
 class OutputNode(Node):
     """Node representing the output of a logic operation."""
@@ -37,6 +44,7 @@ class AndNode(Node):
         super().__init__("And")
 
     def evaluate(self, input1, input2):
+        inputs = [input_node.evaluate() for input_node in self.inputs]
         """Returns True if both inputs are True."""
         return bool(input1 and input2)
 
