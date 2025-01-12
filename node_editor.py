@@ -7,6 +7,7 @@ class NodeEditor:
     def __init__(self):
         self.scene = QGraphicsScene()
         self.nodes = []
+        self.clipboard = []  # Clipboard to store cut/copied nodes
         self.undo_stack = []
         self.redo_stack = []
 
@@ -33,6 +34,55 @@ class NodeEditor:
         # Clear redo stack, as a new action invalidates redo history
         self.redo_stack.clear()
 
+    def cut_nodes(self):
+        """Cuts the selected nodes and stores them in the clipboard."""
+        selected_nodes = [node for node in self.nodes if node.isSelected()]
+        
+        # Store cut nodes in clipboard
+        self.clipboard = selected_nodes[:]
+        
+        # Remove selected nodes from the scene
+        for node in selected_nodes:
+            self.remove_node(node)
+        
+        # Store the action for undo
+        self.undo_stack.append(('cut', self.clipboard[:]))  # Storing the nodes that were cut
+
+        # Clear redo stack, as a new action invalidates redo history
+        self.redo_stack.clear()
+
+    def paste_nodes(self):
+        """Pastes the nodes from the clipboard into the scene."""
+        if not self.clipboard:
+            return
+        
+        # Paste each node from clipboard
+        for node in self.clipboard:
+            node_item = NodeGraphicsItem(node.node_type)
+            node_item.setPos(node.x(), node.y())  # Preserve the original position
+            self.scene.addItem(node_item)
+            self.nodes.append(node_item)
+        
+        # Store the action for undo
+        self.undo_stack.append(('paste', self.clipboard[:]))  # Storing pasted nodes
+        
+        # Clear redo stack, as a new action invalidates redo history
+        self.redo_stack.clear()
+
+    def delete_nodes(self):
+        """Deletes the selected nodes."""
+        selected_nodes = [node for node in self.nodes if node.isSelected()]
+        
+        # Remove selected nodes from the scene
+        for node in selected_nodes:
+            self.remove_node(node)
+        
+        # Store the deleted nodes for undo
+        self.undo_stack.append(('delete', selected_nodes[:]))
+        
+        # Clear redo stack, as a new action invalidates redo history
+        self.redo_stack.clear()
+
     def undo(self):
         """Undo the last action."""
         if not self.undo_stack:
@@ -45,6 +95,14 @@ class NodeEditor:
         elif action == 'remove':
             self.scene.addItem(item)
             self.nodes.append(item)
+        elif action == 'cut':
+            for node in item:
+                self.scene.addItem(node)
+                self.nodes.append(node)
+        elif action == 'delete':
+            for node in item:
+                self.scene.addItem(node)
+                self.nodes.append(node)
         
         # Push the reversed action to redo stack
         self.redo_stack.append((action, item))
@@ -61,6 +119,12 @@ class NodeEditor:
             self.nodes.append(item)
         elif action == 'remove':
             self.remove_node(item)
+        elif action == 'cut':
+            for node in item:
+                self.remove_node(node)
+        elif action == 'delete':
+            for node in item:
+                self.remove_node(node)
 
         # Push the action back to undo stack
         self.undo_stack.append((action, item))
