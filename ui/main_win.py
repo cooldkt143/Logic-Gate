@@ -44,6 +44,23 @@ class Ui_MainWindow(object):
         self.pushButton.setText("->")
         self.pushButton.setObjectName("pushButton")
 
+        # Line Edit 2
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_2.setGeometry(QtCore.QRect(230, 220, 191, 61))
+        self.lineEdit_2.setObjectName("lineEdit_2")
+
+        # Combo Box 2
+        self.comboBox_2 = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox_2.setGeometry(QtCore.QRect(240, 240, 131, 24))
+        self.comboBox_2.addItems(["0", "1"])
+        self.comboBox_2.setObjectName("comboBox_2")
+
+        # Push Button 2
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(380, 240, 21, 21))
+        self.pushButton_2.setText("->")
+        self.pushButton_2.setObjectName("pushButton_2")
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         # Menubar
@@ -108,7 +125,6 @@ class Ui_MainWindow(object):
         self.actionDelete.setText(_translate("MainWindow", "Delete"))
         self.actionTheme.setText(_translate("MainWindow", "Theme"))
 
-
     def change_theme(self):
         if QtWidgets.QApplication.palette().color(QtGui.QPalette.Window) == QtCore.Qt.white:
             self.set_dark_theme()
@@ -167,6 +183,12 @@ class Ui_MainWindow(object):
 
         # Set QMenuBar text color programmatically as a fallback
         self.menubar.setStyleSheet("color: white; background-color: #353535;")
+        self.pushButton.setStyleSheet("color: white; background-color: #454545;")
+        self.pushButton_2.setStyleSheet("color: white; background-color: #454545;")
+        self.lineEdit.setStyleSheet("color: white; background-color: #353535;")
+        self.lineEdit_2.setStyleSheet("color: white; background-color: #353535;")
+        self.comboBox.setStyleSheet("color: white; background-color: #454545;")
+        self.comboBox_2.setStyleSheet("color: white; background-color: #454545;")
 
         for menu in [self.menufile, self.menuedit, self.menuwindows]:
             menu.setStyleSheet("color: white; background-color: #353535;")
@@ -197,8 +219,14 @@ class Ui_MainWindow(object):
             "QListWidget { background-color: #FFFFFF; color: black; }"
         )
 
-                # Set QMenuBar text color programmatically as a fallback
+        # Set QMenuBar text color programmatically as a fallback
         self.menubar.setStyleSheet("color: black; background-color: #FFFFFF;")
+        self.pushButton.setStyleSheet("color: black; background-color: #FFFFFF;")
+        self.pushButton_2.setStyleSheet("color: black; background-color: #FFFFFF;")
+        self.lineEdit.setStyleSheet("color: black; background-color: #FFFFFF;")
+        self.lineEdit_2.setStyleSheet("color: black; background-color: #FFFFFF;")
+        self.comboBox.setStyleSheet("color: black; background-color: #FFFFFF;")
+        self.comboBox_2.setStyleSheet("color: black; background-color: #FFFFFF;")
 
         for menu in [self.menufile, self.menuedit, self.menuwindows]:
             menu.setStyleSheet("color: black; background-color: #FFFFFF;")
@@ -206,6 +234,7 @@ class Ui_MainWindow(object):
     def apply_styles(self, style_sheet):
         """Apply a stylesheet to the main window."""
         self.centralwidget.setStyleSheet(style_sheet)
+
 
 if __name__ == "__main__":
     import sys
