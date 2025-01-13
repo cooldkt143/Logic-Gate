@@ -9,84 +9,107 @@ class Ui_MainWindow(object):
         MainWindow.resize(1080, 552)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
+
+        # Graphics View
         self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
         self.graphicsView.setGeometry(QtCore.QRect(190, 0, 1721, 921))
         self.graphicsView.setFrameShape(QFrame.NoFrame)
         self.graphicsView.setMidLineWidth(0)
-        self.graphicsView.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
+        self.graphicsView.setVerticalScrollBarPolicy(Qt.ScrollBarAsNeeded)
         self.graphicsView.setInteractive(True)
         self.graphicsView.setObjectName("graphicsView")
+
+        # List Widget
         self.listWidget = QtWidgets.QListWidget(self.centralwidget)
         self.listWidget.setGeometry(QtCore.QRect(0, 0, 191, 921))
         self.listWidget.setObjectName("listWidget")
         for text in ["INPUT", "OUTPUT", "AND", "OR", "NOT", "NAND", "NOR", "XOR"]:
             item = QtWidgets.QListWidgetItem(text)
             self.listWidget.addItem(item)
+
+        # Line Edit
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setGeometry(QtCore.QRect(230, 90, 191, 61))
+        self.lineEdit.setObjectName("lineEdit")
+
+        # Combo Box
+        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox.setGeometry(QtCore.QRect(240, 110, 131, 24))
+        self.comboBox.addItems(["0", "1"])
+        self.comboBox.setObjectName("comboBox")
+
+        # Push Button
+        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setGeometry(QtCore.QRect(380, 110, 21, 21))
+        self.pushButton.setText("->")
+        self.pushButton.setObjectName("pushButton")
+
         MainWindow.setCentralWidget(self.centralwidget)
+
+        # Menubar
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1080, 33))
         self.menubar.setObjectName("menubar")
         self.menufile = QtWidgets.QMenu(self.menubar)
-        self.menufile.setObjectName("menufile")
+        self.menufile.setTitle("File")
         self.menuedit = QtWidgets.QMenu(self.menubar)
-        self.menuedit.setObjectName("menuedit")
+        self.menuedit.setTitle("Edit")
         self.menuwindows = QtWidgets.QMenu(self.menubar)
-        self.menuwindows.setObjectName("menuwindows")
+        self.menuwindows.setTitle("Window")
         MainWindow.setMenuBar(self.menubar)
+
+        # Status Bar
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionNew = QtWidgets.QAction(MainWindow)
-        self.actionNew.setObjectName("actionNew")
-        self.actionNew.setShortcut("Ctrl+N")
-        self.actionOpen = QtWidgets.QAction(MainWindow)
-        self.actionOpen.setObjectName("actionOpen")
-        self.actionOpen.setShortcut("Ctrl+O")
-        self.actionSave = QtWidgets.QAction(MainWindow)
-        self.actionSave.setObjectName("actionSave")
-        self.actionSave.setShortcut("Ctrl+S")
-        self.actionExit = QtWidgets.QAction(MainWindow)
-        self.actionExit.setObjectName("actionExit")
-        self.actionExit.setShortcut("Esc")
-        self.actionUndo = QtWidgets.QAction(MainWindow)
-        self.actionUndo.setObjectName("actionUndo")
-        self.actionUndo.setShortcut("Ctrl+U")
-        self.actionRedo = QtWidgets.QAction(MainWindow)
-        self.actionRedo.setObjectName("actionRedo")
-        self.actionRedo.setShortcut("Ctrl+R")
-        self.actionCut = QtWidgets.QAction(MainWindow)
-        self.actionCut.setObjectName("actionCut")
-        self.actionCut.setShortcut("Ctrl+X")
-        self.actionPaste = QtWidgets.QAction(MainWindow)
-        self.actionPaste.setObjectName("actionPaste")
-        self.actionPaste.setShortcut("Ctrl+V")
-        self.actiondelete = QtWidgets.QAction(MainWindow)
-        self.actiondelete.setObjectName("actiondelete")
-        self.actiondelete.setShortcut("Ctrl+Del")
-        self.actiontheme = QtWidgets.QAction(MainWindow)
-        self.actiontheme.setObjectName("actiontheme")
-        self.actiontheme.triggered.connect(self.change_theme)
-        self.menufile.addAction(self.actionNew)
-        self.menufile.addAction(self.actionOpen)
-        self.menufile.addAction(self.actionSave)
-        self.menufile.addAction(self.actionExit)
-        self.menuedit.addAction(self.actionUndo)
-        self.menuedit.addAction(self.actionRedo)
-        self.menuedit.addAction(self.actionCut)
-        self.menuedit.addAction(self.actionPaste)
-        self.menuedit.addAction(self.actiondelete)
-        self.menuwindows.addAction(self.actiontheme)
-        self.menubar.addAction(self.menufile.menuAction())
-        self.menubar.addAction(self.menuedit.menuAction())
-        self.menubar.addAction(self.menuwindows.menuAction())
+
+        # Actions
+        self.actionNew = QtWidgets.QAction(MainWindow, text="New", shortcut="Ctrl+N")
+        self.actionOpen = QtWidgets.QAction(MainWindow, text="Open", shortcut="Ctrl+O")
+        self.actionSave = QtWidgets.QAction(MainWindow, text="Save", shortcut="Ctrl+S")
+        self.actionExit = QtWidgets.QAction(MainWindow, text="Exit", shortcut="Esc")
+        self.actionUndo = QtWidgets.QAction(MainWindow, text="Undo", shortcut="Ctrl+U")
+        self.actionRedo = QtWidgets.QAction(MainWindow, text="Redo", shortcut="Ctrl+R")
+        self.actionCut = QtWidgets.QAction(MainWindow, text="Cut", shortcut="Ctrl+X")
+        self.actionPaste = QtWidgets.QAction(MainWindow, text="Paste", shortcut="Ctrl+V")
+        self.actionDelete = QtWidgets.QAction(MainWindow, text="Delete", shortcut="Ctrl+Del")
+        self.actionTheme = QtWidgets.QAction(MainWindow, text="Theme")
+
+        self.menufile.addActions([self.actionNew, self.actionOpen, self.actionSave, self.actionExit])
+        self.menuedit.addActions([self.actionUndo, self.actionRedo, self.actionCut, self.actionPaste, self.actionDelete])
+        self.menuwindows.addAction(self.actionTheme)
+
+        self.menubar.addMenu(self.menufile)
+        self.menubar.addMenu(self.menuedit)
+        self.menubar.addMenu(self.menuwindows)
+
+        # Signals
+        self.actionTheme.triggered.connect(self.change_theme)
+
+        # Set default theme
+        self.set_light_theme()
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.set_light_theme()  # Set default theme
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.menufile.setTitle(_translate("MainWindow", "File"))
+        self.menuedit.setTitle(_translate("MainWindow", "Edit"))
+        self.menuwindows.setTitle(_translate("MainWindow", "Window"))
+        self.actionNew.setText(_translate("MainWindow", "New"))
+        self.actionOpen.setText(_translate("MainWindow", "Open"))
+        self.actionSave.setText(_translate("MainWindow", "Save"))
+        self.actionExit.setText(_translate("MainWindow", "Exit"))
+        self.actionUndo.setText(_translate("MainWindow", "Undo"))
+        self.actionRedo.setText(_translate("MainWindow", "Redo"))
+        self.actionCut.setText(_translate("MainWindow", "Cut"))
+        self.actionPaste.setText(_translate("MainWindow", "Paste"))
+        self.actionDelete.setText(_translate("MainWindow", "Delete"))
+        self.actionTheme.setText(_translate("MainWindow", "Theme"))
+
 
     def change_theme(self):
-        # Toggle between themes (dark and light)
         if QtWidgets.QApplication.palette().color(QtGui.QPalette.Window) == QtCore.Qt.white:
             self.set_dark_theme()
         else:
@@ -184,19 +207,11 @@ class Ui_MainWindow(object):
         """Apply a stylesheet to the main window."""
         self.centralwidget.setStyleSheet(style_sheet)
 
-    def retranslateUi(self, MainWindow):
-        _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.menufile.setTitle(_translate("MainWindow", "File"))
-        self.menuedit.setTitle(_translate("MainWindow", "Edit"))
-        self.menuwindows.setTitle(_translate("MainWindow", "Window"))
-        self.actionNew.setText(_translate("MainWindow", "New"))
-        self.actionOpen.setText(_translate("MainWindow", "Open"))
-        self.actionSave.setText(_translate("MainWindow", "Save"))
-        self.actionExit.setText(_translate("MainWindow", "Exit"))
-        self.actionUndo.setText(_translate("MainWindow", "Undo"))
-        self.actionRedo.setText(_translate("MainWindow", "Redo"))
-        self.actionCut.setText(_translate("MainWindow", "Cut"))
-        self.actionPaste.setText(_translate("MainWindow", "Paste"))
-        self.actiondelete.setText(_translate("MainWindow", "Delete"))
-        self.actiontheme.setText(_translate("MainWindow", "Theme"))
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
