@@ -199,4 +199,3 @@ class NodeGraphicsItem(QGraphicsItem):
         painter.setBrush(QBrush(Qt.lightGray))
         painter.drawRect(self.boundingRect())
         painter.drawText(self.boundingRect(), Qt.AlignCenter, self.node_type)
-
